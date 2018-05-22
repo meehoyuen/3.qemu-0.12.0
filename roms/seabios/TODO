@@ -1,0 +1,39 @@
+If POST is rerun, try to do a machine reboot.
+
+Add int 0x1589 support.
+
+Review changes committed to coreboot, virtualbox, qemu, kvm, and bochs
+cvs tip.
+  * bochs cvs (20091017):
+    -- 32bit pcibios, int1589
+  * coreboot (r3348):    (bochs 20060708)
+    -- no noteworthy enhancements
+  * qemu (da5ff65d):     (bochs 20090210)
+    -- changes synched
+  * kvm (e5c31442):      (bochs 20090210)
+    -- tpr patching, 16MB rom, acpi-ssdt.dsl, 4K aligned pci mem
+  * virtualbox (r13560): (bochs 20061231)
+    -- lots of mouse changes, logo, scsi/etherboot hooks, int 1589,
+       floppy data rate?, int19 calls post
+
+Audit all sti/cli calls.  Audit all call16 calls to make sure flags is
+setup properly with respect to irqs.
+
+The __call16 code does a long jump to the interrupt trampolines - this
+is unnecessary.
+
+Possibly implement 32bit pcibios support.
+
+Support PCIv3 roms?  Add support for PCI "configuration code"
+extensions?
+
+Possibly add option to eliminate tsc based delays on emulators.
+
+Add a kconfig style configuration program instead of requiring users
+to modify config.h.
+
+Support usb booting?  Support usb mice?
+
+Add a graphical boot splash screen?
+
+Possibly support sending debug information over EHCI debug port.
