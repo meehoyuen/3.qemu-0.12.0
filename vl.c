@@ -133,7 +133,6 @@ int main(int argc, char **argv)
 #include "hw/bt.h"
 #include "hw/watchdog.h"
 #include "hw/smbios.h"
-#include "hw/xen.h"
 #include "hw/qdev.h"
 #include "hw/loader.h"
 #include "bt-host.h"

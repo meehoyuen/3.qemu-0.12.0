@@ -23,7 +23,7 @@ Makefile: ;
 configure: ;
 
 .PHONY: all clean cscope distclean dvi html info install install-doc \
-	recurse-all speed tar tarbin test build-all
+	recurse-all speed tar tarbin build-all
 
 VPATH=$(SRC_PATH):$(SRC_PATH)/hw
 
@@ -257,7 +257,6 @@ clean:
 	rm -f *.o *.d *.a $(TOOLS) TAGS cscope.* *.pod *~ */*~
 	rm -f slirp/*.o slirp/*.d audio/*.o audio/*.d block/*.o block/*.d net/*.o net/*.d
 	rm -f qemu-img-cmds.h
-	$(MAKE) -C tests clean
 	for d in $(ALL_SUBDIRS) libhw32 libhw64 libuser; do \
 	if test -d $$d; then $(MAKE) -C $$d $@ || exit 1; fi; \
         done
@@ -317,8 +316,8 @@ endif
         done
 
 # various test targets
-test speed: all
-	$(MAKE) -C tests $@
+speed: all
+	$(MAKE) -C $@
 
 .PHONY: TAGS
 TAGS:
@@ -389,17 +388,18 @@ tarbin:
 	cd / && tar zcvf ~/qemu-$(VERSION)-$(ARCH).tar.gz \
 	$(bindir)/qemu \
 	$(bindir)/qemu-system-x86_64 \
-	$(bindir)/qemu-system-arm \
 	$(bindir)/qemu-i386 \
 	$(bindir)/qemu-x86_64 \
-	$(bindir)/qemu-arm \
-	$(bindir)/qemu-armeb \
 	$(bindir)/qemu-img \
 	$(bindir)/qemu-nbd \
 	$(datadir)/bios.bin \
 	$(datadir)/vgabios.bin \
 	$(datadir)/vgabios-cirrus.bin \
+	$(datadir)/ppc_rom.bin \
 	$(datadir)/video.x \
+	$(datadir)/openbios-sparc32 \
+	$(datadir)/openbios-sparc64 \
+	$(datadir)/openbios-ppc \
 	$(datadir)/pxe-ne2k_pci.bin \
 	$(datadir)/pxe-rtl8139.bin \
 	$(datadir)/pxe-pcnet.bin \
